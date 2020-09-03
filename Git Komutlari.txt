@@ -1,0 +1,202 @@
+git config --global user.name "Ozgur Kucet" 
+//ismini sisteme tanıtma git sistemine. 
+// config -> ayar yapılandirma demek.
+// global -> bu sistemdeki kullanıcı anlamına geliyor.
+//user.name -> kullanıcı adımızi tanımlar
+
+git config --global user.email "ozgurkucet@hotmail.com"
+
+git config --global user.name
+Ozgur Kucet
+//ismini basar
+
+git config --global user.email
+ozgurkucet@hotmail.com
+//e-mail i basar
+
+------------------------------------------------------------------
+pwd
+//terminal üzerinde bulundugumuz mevcut dizinin tam adresini verir
+
+ls
+//bulundugumuz dizin üzerindeki dosyalari ve dizimleri listeler
+
+cd
+//dizin degistirmek icin cd komutunu kullanırız
+
+cd ..
+//bir önceki dizine geçmek için kullanılır.cd .. bosluk var arada 
+//dikkate etls
+
+clear
+//terminali temizler.
+
+git init
+//bir dizinin git projesi olması için kullanılır git dosyaları-
+//yüklenir.
+
+ls -a
+//yazarsak init dosyanın init yapıldıgını görebiliriz.
+
+--------------------------------------------------------------------------
+//git dosyalarını git repository e ekleme
+//git deposu git dosayalarınızın saklandığı yerdir
+
+git add .
+//yaparak komutlar geçiş bölgesine alınır(staging area)
+//git deposunda değil şuan git deposuna eklemek icin commit yapmamız-
+// gerekiyor
+//git status ile incele...
+
+git commit -m "ilk commit"
+//(Git Repository)
+// String yerine aldığımız versyonun niteliğini açıkar şekilde olmalıdır.
+// şu anda projemizin mevcut bir kopyası olstur
+//bu versyonları listelemek icinse:
+
+git log
+// versyonlar listelendi..
+//çikmak için q ya bas
+
+---------------------------------------------------------------------------
+git status
+//projenizde herhangi bir değişiklik oldugunda bu değişikleri gösterir.
+// on branch master nothing to commit bir değişiklik yok 
+//add yaptıktan sonra yapılan değişiklere bakmak içinde bak
+
+git add cıkarma.py
+// git add . dersek tüm dosyaları ekler
+//böyle yaparak istediğimiz dosyayı eklemiş oluruz.
+
+----------------------------------------------------------------------------
+//dosyalarda değişiklik yaptığımızda:
+//git status yapınca modified: olarak gözükür..Değişikliği görmek için:
+
+git diff
+// Eklenen kısımlar yeşil olarak gözükür.sonra add ve commit et ekle..
+// commit edilen bölge ile calisma dizini arasındaki farklari gösterir
+
+git diff cikarma.py
+// Sadece cikarma icinde yapılan değişiklikler gözükür.
+// silinenler yada değiştirilenler kırmızı ile yeni eklenenler yeşil ile 
+// gözükür.
+
+git diff --staged
+//staging area ile calisma dizini arasındaki farklari gösterir.
+
+----------------------------------------------------------------------------
+/*Dosya silme dosyayı silerek.*/
+
+git add
+git rm carpma.py
+//sildigim dosyayı staging area ya atar.ikiside aynı ise yarar
+//commit et sonra 
+
+/*Dosya terminalden silmek.*/
+
+git rm bolme.py
+//de dosya silinir sonra commit et."Bölme.py silindi"
+
+/*İçinde birçok proje olan klasörü sil*/
+
+git rm -r dosya/
+// r recursive demek dosya klasörünün içindeki tüm dosyaları sonrada klasörü-
+// silmek içindir
+
+-----------------------------------------------------------------------------
+/*dosya adını değiştirme terminal olmadan*/
+
+git status
+//yap değişiklik yapılmadan önceki dosya adı ve sonraki adı çıkar
+
+git add .
+git status
+//renamed olarak bildirir
+
+git commit -m "cikarma.py-->deneme1.txt"
+
+/*terminalden dosya adını değiştimek*/
+
+git mv deneme1.txt deneme2.txt
+// deneme1.txt yi deneme2.txt olarak isimlendirilir
+//mv nin 2 özelliği var diğer özelliğide dosyayı başka bir dizine taşıyor.
+
+git status
+// renamed : deneme1.txt-> deneme2.txt 
+//deneme1.txt-> deneme2.txt
+//kopyalamak için ctrl shift c tusuna bas yapıstırmak icin ctrl shift v ye bas
+
+git commit -m "deneme1.txt-> deneme2.txt"
+
+/*Taşıma işlemi için yapılması gereken*/
+
+git mv deneme2.txt dosyalar/
+//önce taşımak istediğin dosyanın adını yaz sonra klasörün ismi yazılır.
+
+git status
+//renamed deneme2.txt -> dosyalar/deneme2.txt olarak yazar.
+
+git commit -m "deneme2.txt -> dosyalar/deneme2.txt"
+
+--------------------------------------------------------------------------------
+/*silinden verilerin çalişma dizini üzerinden geri almak*/
+
+git status
+//checkout --<file> diye gösteriyor
+// delete olarak ta gözükebilir ozamanda checkout yaparak kurtarabiliriz. 
+
+git checkout -- index
+//yaparsak sil yaparsak silinen satırlar geri gelir.
+
+----------------------------------------------------------------------------------
+/* silinen verileri geçiş bölgesine attıktan sonra kurtarma
+
+git add index
+
+git status
+//modified: index olarak gözükür
+// "git reset HEAD <file>.."diye geri döndüre bilirsin diye yazıyor.
+
+git reset HEAD index
+
+get status
+//silme islemini gecis bölgesinden geri aldı ama hala calisma bölgemizde-
+//islemlerimiz gelmedi...
+//git checkout yap artık
+
+git checkout  -- index
+//yaptık ve verilerimiz dosyamıza geri geldi.
+
+-----------------------------------------------------------------------------------
+/* versyon1 > versyon2 > versyon 3 > versyon2 kopya  //versyon 3 den 2 ye geçersek-
+//böyle gözüküyor versyon 2 kopya gibi*/
+
+git log
+// daha önce alınan versyonları sıralar..
+
+git rm dosya1 dosya2
+// 2 dosyayı sildik
+
+git add .
+git commit -m "versyon 3"
+
+git log
+// 3 tane versyon var
+
+git checkout 53e2cb421afd123fsaf1432df -- .
+// bu 53 ile baslıyan hash kodudur bunu git log yaparak versyonun hash kodunu kopyala
+//EN SONDA -- . (NOKTA) UNUTMA NOKTA TÜM PROJENİN TÜM DOSYALARINI VERSYOM 2 HALİNİ
+//YAPAR NOKTA YERİNE BAŞKA BİRŞEY YAZARSAK O DOSYANIN İÇERİĞİNİ VERSYON 2 YE GÖRE 
+// DEĞİŞTİRİR
+// En son commit edilmesi lazım eğer dönmek istiyorsak
+
+git status
+git commit -m "versyon2 den kopya alındı"
+
+------------------------------------------------------------------------------------
+
+
+
+
+
+
